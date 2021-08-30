@@ -1,0 +1,65 @@
+body {
+    padding: 0px;
+    margin: 0;
+    height: 100vh;
+    font-family: 'Kumbh Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #363636;
+}
+
+p {
+    font-family: 'Kumbh Sans';
+    color: white;
+    font-size: 25px;
+}
+
+#frase {
+    font-family: 'Kumbh Sans';
+    color:#C0C0C0;
+    font-size: 12px;
+}
+
+#container-login {
+    width: 100vh;
+    height: auto;
+    background-color: #1C1C1C;
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#btn {
+    text-decoration: none;
+    display: block;
+    width: 220px;
+    line-height: 38px;
+    padding-top: 2px;
+    border-radius: 20px;
+    color: white;
+    background: rgba(71, 43, 186, 1);
+    margin: 0 auto;
+    border: none;
+    font-size: 14px;
+    text-align: center;
+}
+
+#text-guest {
+    text-decoration: none;
+    text-align: center;
+    color:#808080;
+    margin-top: 15px;
+}
+
+#content-bottom {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
