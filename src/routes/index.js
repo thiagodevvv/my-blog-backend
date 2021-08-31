@@ -52,7 +52,8 @@ router.post('/create', async (req,res) => {
             title: `${req.body.title}`,
             description: `${req.body.description}`,
             likes: 0,
-            comments: []    
+            comments: [],
+            tags: req.body.tags    
         }
         const data = await Post.create(post)
         if(data._id) return res.status(200).send(data)
