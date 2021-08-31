@@ -7,15 +7,13 @@ const mongoose = require('mongoose')
 
 
 router.get('/', async (req,res) => {
-    res.sendFile(path.join(__dirname, '/public/login.html'))
+    res.sendFile(path.join(__dirname, '/public/index.html'))
 })
-router.get('/posts/:token', (req,res) => {
-    if(req.params) {
+router.get('/posts', async (req,res) => {
         res.sendFile(path.join(__dirname, '/public/posts.html'))
-    }
 })
 
-router.get('/guest/posts', (req,res) => {
+router.get('/guest', (req,res) => {
     res.sendFile(path.join(__dirname, '/public/guest.html'))
 })
 router.get('/auth', async(req,res) => {
@@ -32,7 +30,10 @@ router.get('/oauth-callback', async ({query: {code}},res) => {
         code,
     }
     const {data: token} = await axios.post('https://github.com/login/oauth/access_token',body,opts)
-    res.redirect(`/posts/${token.access_token}`)
+    if(token) {
+        res.redirect('/posts')
+    }
+
 })
 
 router.get('/allposts', async (req,res) => {
