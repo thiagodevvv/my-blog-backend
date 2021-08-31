@@ -23,6 +23,10 @@ const PostSchema = new mongoose.Schema({
     tags: {
         type: [],
         required: true
+    },
+    author: {
+        type: String,
+        required: true
     }
 }, {timestamps: true})
 

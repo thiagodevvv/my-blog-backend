@@ -1,6 +1,6 @@
 
 body {
-    padding: 20px;
+    padding: 0px;
     margin: 0;
     height: 100vh;
     font-family: 'Kumbh Sans', sans-serif;
@@ -25,7 +25,7 @@ p {
 }
 
 #container-login {
-    width: 100%;
+    width: 440px;
     height: auto;
     background-color: #1C1C1C;
     border: 2px solid;
@@ -36,6 +36,12 @@ p {
     justify-content: center;
     flex-direction: column;
     margin-top: 100px;
+}
+
+@media screen and (max-width: 500px) {
+    #container-login {
+       width: 100%;
+     }
 }
 
 #btn {
@@ -72,6 +78,10 @@ p {
     width: 100%;
     height: auto;
     margin-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 #container {
@@ -102,4 +112,24 @@ h1 {
     color: #D3D3D3;
     text-align: left;
     margin-left: 5px;
+}
+
+
+#containerPost {
+    width: 50%;
+    height:auto;
+    background-color:#4F4F4F;
+    margin-top:10px;
+    display:flex;
+    flex-direction:column;
+    align-items:left;
+    border-radius: 10px;
+    margin-left: 10px;
+
+}
+
+@media screen and (max-width: 988px) {
+    #containerPost {
+       width: 100%;
+     }
 }
