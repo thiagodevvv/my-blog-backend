@@ -3,11 +3,18 @@ const Post = require('../models/Post')
 const axios = require('axios')
 const path = require('path')
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 
 
 
 router.get('/', async (req,res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'))
+    if(!req.cookies.blogtk) {
+        res.sendFile(path.join(__dirname, '/public/login.html'))
+    }else {
+        res.sendFile(path.join(__dirname, '/public/posts.html'))  
+    }
+    
 })
 router.get('/posts', async (req,res) => {
         res.sendFile(path.join(__dirname, '/public/posts.html'))
@@ -30,8 +37,12 @@ router.get('/oauth-callback', async ({query: {code}},res) => {
         code,
     }
     const {data: token} = await axios.post('https://github.com/login/oauth/access_token',body,opts)
-    if(token) {
-        res.redirect('/posts')
+    const salt = bcrypt.genSaltSync(saltRounds)
+    const hash = bcrypt.hashSync(JSON.stringify(token.access_token), salt)
+    
+    if(hash) {
+        // res.clearCookie('cookiename'); para limpar cookie
+        res.cookie('blogtk', hash, { maxAge: 60 * 60 * 24 * 7, httpOnly: true }).redirect('/posts')
     }
 
 })
