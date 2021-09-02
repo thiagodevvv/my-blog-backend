@@ -20,6 +20,10 @@ router.get('/posts', async (req,res) => {
         res.sendFile(path.join(__dirname, '/public/posts.html'))
 })
 
+router.get('/post', async (req,res) => {
+    res.sendFile(path.join(__dirname, '/public/post.html'))
+})
+
 router.get('/guest', (req,res) => {
     res.sendFile(path.join(__dirname, '/public/guest.html'))
 })

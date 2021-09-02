@@ -1,7 +1,23 @@
 
+
 function createTimeLinePosts(posts) {   
         let containerPost = document.createElement("div")
         containerPost.id="containerPost"
+        containerPost.addEventListener('click', () => {
+            let post = posts.title
+            let description = posts.description
+            let viewPost = document.getElementById("view-post")
+            let title = document.createElement("h1")
+            title.id="#title-view-post"
+            title.innerText = post
+            let viewDescriptionPost = document.createElement("p")
+            viewDescriptionPost.id="viewDescriptionPost"
+            viewDescriptionPost.innerText = description
+            viewPost.appendChild(title)
+            viewPost.appendChild(viewDescriptionPost)
+            let timeLinePost = document.getElementById("timeline-posts")
+            timeLinePost.style.display="none"
+        })
         let post = document.createElement("h1")
         let tags = document.createElement("p")
         let author = document.createElement("h5")
@@ -10,18 +26,18 @@ function createTimeLinePosts(posts) {
         containerLikesAndComments.style.flexDirection="row"
         let imgHeart = document.createElement("img")
         let imgComments = document.createElement("img")
-        imgHeart.style.width="20px"
-        imgHeart.style.heigth="20px"
-        imgHeart.style.marginLeft="10px"
-        imgHeart.style.marginBottom="10px"
         imgHeart.src="/heart.png"
-        imgComments.style.width="20px"
-        imgComments.style.heigth="20px"
-        imgComments.style.marginLeft="10px"
-        imgComments.style.marginBottom="10px"
         imgComments.src="/comments.png"
-        containerLikesAndComments.appendChild(imgHeart)
-        containerLikesAndComments.appendChild(imgComments)
+        imgHeart.id="icons-post"
+        imgComments.id="icons-post"
+        let buttonHeart = document.createElement("button")
+        let buttonComments = document.createElement("button")
+        buttonHeart.id="buttonHeart"
+        buttonComments.id="buttonComments"
+        buttonHeart.appendChild(imgHeart)
+        buttonComments.appendChild(imgComments)
+        containerLikesAndComments.appendChild(buttonHeart)
+        containerLikesAndComments.appendChild(buttonComments)
         tags.innerHTML = posts.tags
         post.innerHTML = posts.title
         author.innerHTML = "por " + posts.author
@@ -53,3 +69,12 @@ async function getPosts() {
     })
 }
 getPosts()
+
+// function renderPost() {
+//     console.log('testando o click')
+//     let title = document.getElementById("post-text")
+//     title.innerText = post
+// }
+
+
+// renderPost()

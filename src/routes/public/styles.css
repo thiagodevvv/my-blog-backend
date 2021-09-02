@@ -119,13 +119,21 @@ h1 {
     width: 50%;
     height:auto;
     background-color:#4F4F4F;
-    margin-top:10px;
+    margin-top: 15px;
     display:flex;
     flex-direction:column;
     align-items:left;
     border-radius: 10px;
     margin-left: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 
+}
+
+#containerPost:hover {
+    cursor: pointer;
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
 }
 
 @media screen and (max-width: 988px) {
@@ -133,3 +141,48 @@ h1 {
        width: 100%;
      }
 }
+
+
+#icons-post {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+#buttonHeart {
+   background-color: transparent;
+   border: none;
+}
+
+
+#buttonHeart:hover {
+    cursor: pointer;
+}
+
+#buttonComments {
+    background-color: transparent;
+    border: none;
+    margin-left: 10px;
+ }
+ 
+ 
+#buttonComments:hover {
+     cursor: pointer;
+}
+
+#view-post {
+    margin: 30px;
+}
+
+#title-view-post {
+    color:  #D3D3D3;
+}
+
+#viewDescriptionPost {
+    text-align: justify;
+    color:#D3D3D3;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
