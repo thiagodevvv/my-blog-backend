@@ -13,11 +13,31 @@ function createTimeLinePosts(posts) {
             let viewDescriptionPost = document.createElement("p")
             viewDescriptionPost.id="viewDescriptionPost"
             viewDescriptionPost.innerText = description
+            let containerLikesAndComments = document.createElement("div")
+            containerLikesAndComments.style.display="flex"
+            containerLikesAndComments.style.flexDirection="row"
+            let imgHeart = document.createElement("img")
+            let imgComments = document.createElement("img")
+            imgHeart.src="/heart.png"
+            imgComments.src="/comments.png"
+            imgHeart.id="icons-post"
+            imgComments.id="icons-post"
+            let buttonHeart = document.createElement("button")
+            let buttonComments = document.createElement("button")
+            buttonHeart.id="buttonHeart"
+            buttonComments.id="buttonComments"
+            buttonHeart.appendChild(imgHeart)
+            buttonComments.appendChild(imgComments)
+            containerLikesAndComments.appendChild(buttonHeart)
+            containerLikesAndComments.appendChild(buttonComments)
             viewPost.appendChild(title)
             viewPost.appendChild(viewDescriptionPost)
+            viewPost.appendChild(containerLikesAndComments)
             let timeLinePost = document.getElementById("timeline-posts")
             timeLinePost.style.display="none"
         })
+
+
         let post = document.createElement("h1")
         let tags = document.createElement("p")
         let author = document.createElement("h5")

@@ -2,7 +2,9 @@ const router = require('express').Router()
 const Post = require('../models/Post')
 const axios = require('axios')
 const path = require('path')
+const db = require('../database/db')
 const mongoose = require('mongoose')
+const ObjectId = require('mongodb').ObjectID;
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
@@ -75,6 +77,25 @@ router.post('/create', async (req,res) => {
         if(data._id) return res.status(200).send(data)
     }catch(err) {
         if(err) console.log(`Error: ${err}`)
+    }
+})
+
+router.post('/addcomment', async (req,res) => {
+    if(!req.body.comment && !req.body.id) {
+        return res.status(400).send('Sem dados para adicionar comentário')
+    }
+    const id = req.body.id
+    const comment = req.body.comment
+    const conn = await db.connection
+    try {
+        const response = await conn.collection('posts').findOneAndUpdate({_id: new ObjectId(`${id}`)}, {$push : {
+            comments: comment
+        }})
+        if(response.lastErrorObject.updatedExisting){
+            return res.status(200).send("Comentário adicionado")
+        }
+    }catch(err) {
+        console.log(`Erro ao adicionar comentário:::: ${err}`)
     }
 })
 
