@@ -1,9 +1,12 @@
 const router = require('express').Router()
-const Post = require('../models/Post')
 const axios = require('axios')
 const path = require('path')
-const db = require('../database/db')
-const ObjectId = require('mongodb').ObjectID;
+const {
+    getPosts, 
+    createPost, 
+    addComment, 
+    deleteComment
+} = require('../services')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
@@ -52,49 +55,9 @@ router.get('/oauth-callback', async ({query: {code}},res) => {
 
 })
 
-router.get('/allposts', async (req,res) => {
-    try {
-        const conn = await db.connection
-        const posts = await conn.collection('posts').find({}).toArray()
-        return res.status(200).send(posts)
-    }catch(err) {
-        if(err) console.log(`Erro ao pegar posts::: ${err}`)
-    }
-})
-router.post('/create', async (req,res) => {
-    try {
-        const post = {
-            title: `${req.body.title}`,
-            description: `${req.body.description}`,
-            likes: 0,
-            comments: [],
-            tags: req.body.tags,
-            author: req.body.author    
-        }
-        const data = await Post.create(post)
-        if(data._id) return res.status(200).send(data)
-    }catch(err) {
-        if(err) console.log(`Error: ${err}`)
-    }
-})
-
-router.post('/addcomment', async (req,res) => {
-    if(!req.body.comment && !req.body.id) {
-        return res.status(400).send('Sem dados para adicionar comentário')
-    }
-    const id = req.body.id
-    const comment = req.body.comment
-    const conn = await db.connection
-    try {
-        const response = await conn.collection('posts').findOneAndUpdate({_id: new ObjectId(`${id}`)}, {$push : {
-            comments: comment
-        }})
-        if(response.lastErrorObject.updatedExisting){
-            return res.status(200).send("Comentário adicionado")
-        }
-    }catch(err) {
-        console.log(`Erro ao adicionar comentário:::: ${err}`)
-    }
-})
+router.get('/allposts', getPosts)
+router.post('/create', createPost)
+router.post('/addcomment', addComment)
+router.delete('/:comment/:iduser', deleteComment)
 
 module.exports = router
