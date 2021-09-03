@@ -3,7 +3,6 @@ const Post = require('../models/Post')
 const axios = require('axios')
 const path = require('path')
 const db = require('../database/db')
-const mongoose = require('mongoose')
 const ObjectId = require('mongodb').ObjectID;
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -55,8 +54,7 @@ router.get('/oauth-callback', async ({query: {code}},res) => {
 
 router.get('/allposts', async (req,res) => {
     try {
-        await mongoose.connect(process.env.DB_URL, {useUnifiedTopology: true , useNewUrlParser: true })
-        const conn = await mongoose.connection
+        const conn = await db.connection
         const posts = await conn.collection('posts').find({}).toArray()
         return res.status(200).send(posts)
     }catch(err) {
