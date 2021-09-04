@@ -53,8 +53,6 @@ async function addComment(req,res) {
 async function deleteComment(req,res) {
         const iduser = req.params.iduser
         const comment = req.params.comment
-        console.log(iduser)
-        console.log(comment)
     try {
         const conn = await db.connection
         const response =  await conn.collection('comments').findOneAndDelete({iduser: iduser, comment: comment})
@@ -68,9 +66,46 @@ async function deleteComment(req,res) {
     }
 }
 
+async function addLike(req,res) {
+    const idpost = req.params.idpost
+    try {
+        const conn = await db.connection
+        const {likes} = await conn.collection('posts').findOne({_id: new ObjectId(idpost)})
+        const response = await conn.collection('posts').findOneAndUpdate({_id: new ObjectId(idpost)}, {$set: {
+            likes: likes + 1
+        }})
+        if(response.lastErrorObject.updatedExisting > 0) {
+            return res.status(200).send("Like adicionado")
+        }
+    }catch(err) {
+        if(err) console.log(`Erro ao dar o Like:::: ${err}`)
+    }
+}
+
+
+async function removeLike(req,res) {
+    const idpost = req.params.idpost
+    try {
+        const conn = await db.connection
+        const {likes} = await conn.collection('posts').findOne({_id: new ObjectId(idpost)})
+        const response = await conn.collection('posts').findOneAndUpdate({_id: new ObjectId(idpost)}, {$set: {
+            likes: likes - 1
+        }})
+        if(response.lastErrorObject.updatedExisting > 0) {
+            return res.status(200).send("Like removido")
+        }
+    }catch(err) {
+        if(err) return res.status(400).send(err)
+    }
+}
+
+
+
 module.exports = {
     getPosts,
     createPost,
     addComment,
-    deleteComment
+    deleteComment,
+    addLike,
+    removeLike
 }

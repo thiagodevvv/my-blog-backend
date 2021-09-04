@@ -5,7 +5,9 @@ const {
     getPosts, 
     createPost, 
     addComment, 
-    deleteComment
+    deleteComment,
+    addLike,
+    removeLike
 } = require('../services')
 const bcrypt = require('bcrypt')
 const saltRounds = 10
@@ -58,6 +60,8 @@ router.get('/oauth-callback', async ({query: {code}},res) => {
 router.get('/allposts', getPosts)
 router.post('/create', createPost)
 router.post('/addcomment', addComment)
-router.delete('/:comment/:iduser', deleteComment)
+router.delete('/remove/:comment/:iduser', deleteComment)
+router.post('/addlike/:idpost', addLike)
+router.delete('/removelike/:idpost', removeLike)
 
 module.exports = router
