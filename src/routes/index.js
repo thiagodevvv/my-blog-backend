@@ -3,7 +3,8 @@ const axios = require('axios')
 const path = require('path')
 const {
     getPosts, 
-    createPost, 
+    createPost,
+    deletePost, 
     addComment, 
     deleteComment,
     addLike,
@@ -59,6 +60,7 @@ router.get('/oauth-callback', async ({query: {code}},res) => {
 
 router.get('/allposts', getPosts)
 router.post('/create', createPost)
+router.delete('/post/delete/:id', deletePost)
 router.post('/addcomment', addComment)
 router.delete('/remove/:comment/:iduser', deleteComment)
 router.post('/addlike/:idpost', addLike)

@@ -30,6 +30,18 @@ async function createPost(req,res) {
     }
 }
 
+async function deletePost(req,res) {
+    const post = req.params.id
+    try {
+        const conn = await db.connection
+        const response = await conn.collection('posts').findOneAndDelete({_id: new ObjectId(post)})
+        return res.status(200).send("Ok post deletado")
+    }catch(err) {
+        console.log(`Erro ao deletar post::::${err}`)
+    }
+
+}
+
 async function addComment(req,res) {
     if(!req.body.comment && !req.body.id) {
         return res.status(400).send('Sem dados para adicionar comentário')
@@ -107,5 +119,6 @@ module.exports = {
     addComment,
     deleteComment,
     addLike,
-    removeLike
+    removeLike,
+    deletePost
 }
